@@ -8,4 +8,4 @@ setup(name="rss-digest-flask",
     packages=["rss-digest"],
     include_package_data=True,
     zip_safe=False,
-    install_requires=["Flask", "Waitress"])
+    install_requires=["Flask", "requests", "setuptools", "waitress"])
