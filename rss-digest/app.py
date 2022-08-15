@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request, redirect, send_file
-# from urllib import parse
+import utils.handler
+from flask import Flask, Response, request, render_template, send_file
 from waitress import serve
 
 app = Flask(__name__)
@@ -9,36 +9,28 @@ app = Flask(__name__)
 @app.route("/")
 def main():
 
-    # # If no URL args, return a non-error page
-    # if (len(request.args.keys()) == 0):
-    #     return ("<a href='https://github.com/ZacharyTalis/search-handler-flask/'>search-handler-flask</a>", 200)
+    # If no URL args, return a non-error page
+    if (len(request.args.keys()) == 0):
+        return ("<a href='https://github.com/ZacharyTalis/rss-digest-flask/'>rss-digest-flask</a>", 200)
 
-    # # Get URL args
-    # url = request.args.get("url", "")
-    # rawSubs = parse.unquote(request.args.get("subs", "")).split(",")
-    # subs = {}
+    # Get URL args
+    url = request.args.get("url", "")
 
-    # try:
-    #     # Split rawSubs into a dictionary
-    #     for rawSub in rawSubs:
-    #         rawSub = rawSub.split("~")
-    #         subs[rawSub[0]] = rawSub[1]
-    #     # Perform URL subs
-    #     for sub in subs.keys():
-    #         url = url.replace(sub, subs[sub])
-    # except:
-    #     # Request malformed or missing args
-    #     return ("Request malformed or missing args!", 400)
+    # Get articles dictionary
+    root = utils.handler.getRootFromRssUrl(url)
+    articles = utils.handler.getArticlesFromRoot(root)
 
-    # print(rawSubs)
-    # print(subs)
-    # print(url)
-    # return redirect(url, code=303)
-    return "init"
+    dates = sorted(list(articles.keys()))
+    title = "TK"
+    
+    # Return RSS file
+    return Response(render_template("rss.xml", articles=articles, dates=dates, title=title), mimetype="application/xml")
+
 
 @app.route("/.well-known/gpc.json")
 def wellKnown():
     return send_file("static/gpc.json", mimetype="application/json")
+
 
 if __name__ == "__main__":
     serve(app)

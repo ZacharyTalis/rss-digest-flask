@@ -1,5 +1,6 @@
 import email.utils
-import urllib.request
+from html.parser import HTMLParser
+import requests
 import xml.etree.ElementTree as ET
 
 
@@ -16,18 +17,59 @@ class Article:
         return f"< Article \"{self.title}\" >"
 
 
-# Take an XML root and return a date->Article dictionary
+# Parser used for cleaning up RSS summaries
+class HandlerHtmlParser(HTMLParser):
+
+    def __init__(self):
+        self._body = None
+        HTMLParser.__init__(self)
+
+    def handle_data(self, data):
+        if (not self._body):
+            self._body = data
+
+    def getBody(self):
+        return self._body
+
+    body = property(getBody, handle_data)
+
+
+# Take the URL of some RSS file and return its XML root
+def getRootFromRssUrl(url):
+    contents = requests.get(url).text
+    root = ET.fromstring(contents)
+    # Handle XML vs RSS hierarchy difference
+    if (list(root)[0].tag == "channel"):
+        root = list(root)[0]
+    return root
+
+
+# Clean up any RSS summary that happens to be HTML
+def cleanSummaryIfHtml(summary):
+    try:
+        parser = HandlerHtmlParser()
+        parser.feed(summary)
+        summary = parser.body
+    except:
+        # Summary isn't HTML
+        pass
+    return summary
+
+
+# Take an XML root and return the corresponding date->Article dictionary
 def getArticlesFromRoot(root):
 
     subchildTags = ["updated", "link", "title", "summary"]
     subchildAlts = {"pubDate": "updated", "description": "summary"}
+    articles = {}
 
     for child in root:
-        tempArticle = {}
         if (list(filter(child.tag.endswith, ["entry", "item"]))):
+            tempArticle = {}
             for subchild in child:
-                match = list(filter(subchild.tag.endswith, subchildTags + list(subchildAlts.keys())))
 
+                # Check if tag pertains to an Article property we'd like to store
+                match = list(filter(subchild.tag.endswith, subchildTags + list(subchildAlts.keys())))
                 if (match):
 
                     # We can safely snag the first (presumably only) item in the match list
@@ -47,21 +89,12 @@ def getArticlesFromRoot(root):
                     else:
                         tempArticle[match] = subchild.text
 
+            # Clean up summary
+            if (tempArticle["summary"]):
+                tempArticle["summary"] = cleanSummaryIfHtml(tempArticle["summary"])
+
             # Splatty-splat expansion
             article = Article(**tempArticle)
             articles[article.updated] = article
 
-
-contents = urllib.request.urlopen("https://zacharytalis.com/blog/feed.xml").read()
-root = ET.fromstring(contents)
-
-# Handle XML vs RSS hierarchy difference
-if (list(root)[0].tag == "channel"):
-    root = list(root)[0]
-
-# Get articles dictionary
-articles = getArticlesFromRoot(root)
-
-# Print list of articles
-for date in sorted(list(articles.keys())):
-    print(articles[date])
+    return articles

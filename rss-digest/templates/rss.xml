@@ -1,0 +1,33 @@
+{% macro description() -%}
+    {% for date in dates %}
+        &lt;p&gt;&lt;strong&gt;&lt;a href="{{ articles[date].link }}"&gt;{{ articles[date].title }}&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+        {% if articles[date].summary != None %}
+            &lt;p&gt;{{ articles[date].summary }}&lt;/p&gt;
+        {% endif %}
+        &lt;br&gt;
+    {% endfor %}
+{%- endmacro -%}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="TK" rel="self" type="application/rss+xml" />
+        <title>TK</title>
+        <link>TK</link>
+        <description>TK</description>
+        <pubDate>Sun, Mar 27 2022 21:00:00 GMT</pubDate>
+        <language>en-US</language>
+        <image>
+            <url>TK</url>
+            <title>TK</title>
+            <link>TK</link>
+            <description>TK</description>
+        </image>
+        <item>
+            <title>{{ title }}</title>
+            <link>https://example.com/</link>
+            <guid isPermaLink="true">https://example.com/</guid>
+            <pubDate>Sun, Mar 27 2022 21:00:00 GMT</pubDate>
+            <source url="https://example.com">TK</source>
+            <description>{{ description() }}</description>
+        </item>
+    </channel>
+</rss>
