@@ -1,30 +1,50 @@
 #!/usr/bin/env python3
 
 import utils.handler
-from flask import Flask, Response, request, render_template, send_file
+import dateutil.parser
+from email.utils import formatdate
+from flask import Flask, Response, request, render_template, send_file, url_for
 from waitress import serve
+
 
 app = Flask(__name__)
 
 @app.route("/")
 def main():
 
-    # If no URL args, return a non-error page
-    if (len(request.args.keys()) == 0):
-        return ("<a href='https://github.com/ZacharyTalis/rss-digest-flask/'>rss-digest-flask</a>", 200)
+    try:
+        # If no URL args, return a non-error page
+        if (len(request.args.keys()) == 0):
+            return ("<a href='https://github.com/ZacharyTalis/rss-digest-flask/'>rss-digest-flask</a>", 200)
 
-    # Get URL args
-    url = request.args.get("url", "")
+        # Get URL args
+        url = request.args.get("url", None)
+        feedDescription = request.args.get("feed-description", None)
+        feedIcon = request.args.get("feed-icon", url_for("static", filename="img/icon.png", _external=True))
+        feedIconAlt = request.args.get("feed-icon-alt", None)
+        feedTitle = request.args.get("feed-title", "Untitled Feed")
+        itemTitle = request.args.get("item-title", "Untitled Item")
+        latest = request.args.get("latest", None)
+        if (latest):
+            latest = int(latest)
 
-    # Get articles dictionary
-    root = utils.handler.getRootFromRssUrl(url)
-    articles = utils.handler.getArticlesFromRoot(root)
+        # Define other Jinja args
+        rssUrl = request.url
+        pubDate = formatdate()
 
-    dates = sorted(list(articles.keys()))
-    title = "TK"
-    
-    # Return RSS file
-    return Response(render_template("rss.xml", articles=articles, dates=dates, title=title), mimetype="application/xml")
+        # Fill in item title date wildcard
+        itemTitle = itemTitle.replace("_date", pubDate[0:-15])
+
+        # Get articles dictionary
+        root = utils.handler.getRootFromRssUrl(url)
+        articles = utils.handler.getArticlesFromRoot(root, dateutil.parser.parse(pubDate).timestamp(), latest)
+        dates = sorted(list(articles.keys()))
+        
+        # Return RSS file
+        return Response(render_template("rss.xml", articles=articles, dates=dates, feedDescription=feedDescription, feedIcon=feedIcon, feedIconAlt=feedIconAlt, feedTitle=feedTitle, itemTitle=itemTitle, latest=latest, pubDate=pubDate, rssUrl=rssUrl, url=url), mimetype="application/xml")
+    except:
+        # Request malformed or missing args
+        return ("Request malformed or missing args!", 400)
 
 
 @app.route("/.well-known/gpc.json")

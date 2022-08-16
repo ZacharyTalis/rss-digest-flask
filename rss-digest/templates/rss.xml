@@ -9,25 +9,27 @@
 {%- endmacro -%}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <atom:link href="TK" rel="self" type="application/rss+xml" />
-        <title>TK</title>
-        <link>TK</link>
-        <description>TK</description>
-        <pubDate>Sun, Mar 27 2022 21:00:00 GMT</pubDate>
+        <atom:link href="{{ rssUrl }}" rel="self" type="application/rss+xml" />
+        <title>{{ feedTitle }}</title>
+        <link>{{ rssUrl }}</link>
+        <description>{{ feedDescription }}</description>
+        <pubDate>{{ pubDate }}</pubDate>
         <language>en-US</language>
         <image>
-            <url>TK</url>
-            <title>TK</title>
-            <link>TK</link>
-            <description>TK</description>
+            <url>{{ feedIcon }}</url>
+            <title>{{ feedTitle }}</title>
+            <link>{{ rssUrl }}</link>
+            <description>{{ feedIconAlt }}</description>
         </image>
-        <item>
-            <title>{{ title }}</title>
-            <link>https://example.com/</link>
-            <guid isPermaLink="true">https://example.com/</guid>
-            <pubDate>Sun, Mar 27 2022 21:00:00 GMT</pubDate>
-            <source url="https://example.com">TK</source>
-            <description>{{ description() }}</description>
-        </item>
+        {% if articles|length > 0 %}
+            <item>
+                <title>{{ itemTitle }}</title>
+                <link>{{ rssUrl }}</link>
+                <guid isPermaLink="true">{{ rssUrl }}</guid>
+                <pubDate>{{ pubDate }}</pubDate>
+                <source url="{{ rssUrl }}">{{ feedTitle }}</source>
+                <description>{{ description() }}</description>
+            </item>
+        {% endif %}
     </channel>
 </rss>

@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+import dateutil.parser
 import email.utils
 from html.parser import HTMLParser
 import requests
@@ -57,7 +60,7 @@ def cleanSummaryIfHtml(summary):
 
 
 # Take an XML root and return the corresponding date->Article dictionary
-def getArticlesFromRoot(root):
+def getArticlesFromRoot(root, currentTime, latest):
 
     subchildTags = ["updated", "link", "title", "summary"]
     subchildAlts = {"pubDate": "updated", "description": "summary"}
@@ -82,7 +85,7 @@ def getArticlesFromRoot(root):
                     elif (match in subchildAlts.keys()):
                         # Before grabbing a pubDate, convert to a sortable timestamp string
                         if (match == "pubDate"):
-                            tempArticle["updated"] = str(email.utils.parsedate_to_datetime(subchild.text).timestamp())
+                            tempArticle["updated"] = str(email.utils.parsedate_to_datetime(subchild.text))
                         else:
                             tempArticle[subchildAlts[match]]= subchild.text
                     # Grab normally
@@ -93,8 +96,10 @@ def getArticlesFromRoot(root):
             if (tempArticle["summary"]):
                 tempArticle["summary"] = cleanSummaryIfHtml(tempArticle["summary"])
 
-            # Splatty-splat expansion
+            # Check if updated time is within latest - if so, add to articles dictionary
             article = Article(**tempArticle)
-            articles[article.updated] = article
+            if (not latest or (currentTime - dateutil.parser.parse(article.updated).timestamp() <= latest)):
+                # Splatty-splat expansion
+                articles[article.updated] = article
 
     return articles
