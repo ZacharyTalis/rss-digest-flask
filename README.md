@@ -15,3 +15,5 @@ Take a source RSS feed and return a digest RSS feed.
 | ?latest           | N          | None          | Max oldest article (in seconds) |
 
 `?item-title` input replaces `_date` with the current date.
+
+All input needs `&` escaped to `%26`.
