@@ -14,4 +14,4 @@ Take a source RSS feed and return a digest RSS feed.
 | ?item-title       | N          | Untitled Item | Item title                      |
 | ?latest           | N          | None          | Max oldest article (in seconds) |
 
-`?itemTitle` input replaces `_date` with the current date.
+`?item-title` input replaces `_date` with the current date.
