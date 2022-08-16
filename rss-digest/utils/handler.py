@@ -93,7 +93,7 @@ def getArticlesFromRoot(root, currentTime, latest):
                         tempArticle[match] = subchild.text
 
             # Clean up summary
-            if (tempArticle["summary"]):
+            if ("summary" in tempArticle.keys()):
                 tempArticle["summary"] = cleanSummaryIfHtml(tempArticle["summary"])
 
             # Check if updated time is within latest - if so, add to articles dictionary
