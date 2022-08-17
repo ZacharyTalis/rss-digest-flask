@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from fileinput import filename
 import utils.handler
 import dateutil.parser
 from email.utils import formatdate
@@ -21,7 +20,7 @@ def main():
         # Get URL args
         url = request.args.get("url", None)
         feedDescription = request.args.get("feed-description", None)
-        feedIcon = request.args.get("feed-icon", url_for("static", filename="img/icon.png"))
+        feedIcon = request.args.get("feed-icon", ("." + url_for("static", filename="img/icon.png")))
         feedIconAlt = request.args.get("feed-icon-alt", None)
         feedTitle = request.args.get("feed-title", "Untitled Feed")
         itemTitle = request.args.get("item-title", "Untitled Item")
