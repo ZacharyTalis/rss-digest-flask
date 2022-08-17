@@ -1,0 +1,73 @@
+:root {
+    --color-text: #002B1C;
+    --color-background-primary: #ECF7DC;
+    --color-background-secondary: #F4FDE7;
+}
+
+body {
+    color: var(--color-text);
+    background-color: var(--color-background-primary);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.group-header {
+    padding-left: 1em;
+    width: min(80%, 30em);
+    margin-top: 1.675em;
+    margin-bottom: 1.675em;
+}
+
+.group-header h1 {
+    display: inline;
+    padding-left: 0.25em;
+    font-size: 2.5em;
+}
+
+.group-header img {
+    display: inline;
+    height: 2em;
+}
+
+.group-body,
+.group-output {
+    background-color: var(--color-background-secondary);
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 1em;
+}
+
+.group-input {
+    padding-bottom: 1em;
+}
+
+.group-input label {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.group-input label::after {
+    content: " - ";
+    font-weight: normal;
+}
+
+.group-input p {
+    display: inline-block;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.group-input input {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.group-input [type="text"],
+#output-area {
+    width: min(100%, 40rem);
+    box-sizing: border-box;
+    resize: none;
+}

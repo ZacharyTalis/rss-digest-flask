@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rss-digest-flask</title>
+    <link rel="preload" href="{{ stylesheet }}" as="style">
+    <link rel="stylesheet" href="{{ stylesheet }}">
+    <link rel="icon" href="{{ icon }}">
+    <meta property="og:title" content="rss-digest-flask">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Convert a source RSS feed into a periodic digest RSS feed.">
+    <meta property="og:url" content="{{ baseUrl }}">
+    <meta property="og:image" content="{{ icon }}">
+    <meta property="og:image:secure_url" content="{{ icon }}">
+    <meta property="og:image:alt" content="A cursive-looking D for Digest.">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Convert a source RSS feed into a periodic digest RSS feed.">
+</head>
+
+<body>
+
+    <div class="group-header">
+        <img src="{{ icon }}" alt="A cursive-looking D for Digest.">
+        <h1>rss-digest-flask</h1>
+    </div>
+
+    <form class="group-body">
+        <div class="group-input">
+            <label for="url">Source URL</label>
+            <p>Direct link to the source feed.</p>
+            <input type="text" id="url" name="url" oninput="setDigestUrl();" required>
+        </div>
+        <div class="group-input">
+            <label for="feed-title">Feed title</label>
+            <p>Title of your digest feed.</p>
+            <input type="text" id="feed-title" name="feed-title" oninput="setDigestUrl();">
+        </div>
+        <div class="group-input">
+            <label for="feed-description">Description</label>
+            <p>Description of your digest feed.</p>
+            <input type="text" id="feed-description" name="feed-description" oninput="setDigestUrl();">
+        </div>
+        <div class="group-input">
+            <label for="feed-icon">Icon URL</label>
+            <p>Direct link to your digest feed's icon.</p>
+            <input type="text" id="feed-icon" name="feed-icon" oninput="setDigestUrl();">
+        </div>
+        <div class="group-input">
+            <label for="feed-icon-alt">Icon alt-text</label>
+            <p>Description of your digest feed's icon.</p>
+            <input type="text" id="feed-icon-alt" name="feed-icon-alt" oninput="setDigestUrl();">
+        </div>
+        <div class="group-input">
+            <label for="item-title">Item title</label>
+            <p>Title of articles in your digest feed. Feed replaces <code>_date</code> with the current date.</p>
+            <input type="text" id="item-title" name="item-title" oninput="setDigestUrl();">
+        </div>
+        <div class="group-input">
+            <label for="latest">Latest</label>
+            <p>Max oldest article to include (in seconds). 1 day = 86400 seconds.</p>
+            <input type="text" id="latest" name="latest" pattern="[]{0,9}" value="86400" oninput="setDigestUrl();" onblur="cleanLatestValue();setDigestUrl();">
+        </div>
+    </form>
+
+    <div class="group-output">
+        <h2>Digest URL</h2>
+        <textarea name="output-area" id="output-area" wrap="hard" cols="50" readonly></textarea>
+    </div>
+
+    <script src="{{ builderScript }}" baseUrl="{{ baseUrl }}"></script>
+
+</body>
+
+</html>

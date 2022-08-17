@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from fileinput import filename
 import utils.handler
 import dateutil.parser
 from email.utils import formatdate
@@ -13,9 +14,9 @@ app = Flask(__name__)
 def main():
 
     try:
-        # If no URL args, return a non-error page
+        # If no URL args, return the URL builder page
         if (len(request.args.keys()) == 0):
-            return ("<a href='https://github.com/ZacharyTalis/rss-digest-flask/'>rss-digest-flask</a>", 200)
+            return render_template("index.html", baseUrl=url_for("main", _external=True), builderScript= url_for("static", filename="js/builder.js"), icon=url_for("static", filename="img/icon.svg"), stylesheet=url_for("static", filename="css/style.css"))
 
         # Get URL args
         url = request.args.get("url", None)
