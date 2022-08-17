@@ -16,12 +16,12 @@ def main():
     try:
         # If no URL args, return the URL builder page
         if (len(request.args.keys()) == 0):
-            return render_template("index.html", baseUrl=url_for("main", _external=True), builderScript= url_for("static", filename="js/builder.js", _external=True), icon=url_for("static", filename="img/icon.svg", _external=True), stylesheet=url_for("static", filename="css/style.css", _external=True))
+            return render_template("index.html", baseUrl=url_for("main"), builderScript= url_for("static", filename="js/builder.js"), icon=url_for("static", filename="img/icon.svg"), stylesheet=url_for("static", filename="css/style.css"))
 
         # Get URL args
         url = request.args.get("url", None)
         feedDescription = request.args.get("feed-description", None)
-        feedIcon = request.args.get("feed-icon", url_for("static", filename="img/icon.png", _external=True))
+        feedIcon = request.args.get("feed-icon", url_for("static", filename="img/icon.png"))
         feedIconAlt = request.args.get("feed-icon-alt", None)
         feedTitle = request.args.get("feed-title", "Untitled Feed")
         itemTitle = request.args.get("item-title", "Untitled Item")

@@ -1,5 +1,5 @@
 // Constants (used often, don't want to fetch each time)
-const baseUrl = document.currentScript.getAttribute("baseUrl");
+const baseUrl = window.location.href;
 const outputArea = document.getElementById("output-area");
 
 // Remove non-numerical characters from the "latest" inputbox

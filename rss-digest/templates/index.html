@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rss-digest-flask</title>
-    <link rel="preload" href="{{ stylesheet }}" as="style">
-    <link rel="stylesheet" href="{{ stylesheet }}">
-    <link rel="icon" href="{{ icon }}">
+    <link rel="preload" href=".{{ stylesheet }}" as="style">
+    <link rel="stylesheet" href=".{{ stylesheet }}">
+    <link rel="icon" href=".{{ icon }}">
     <meta property="og:title" content="rss-digest-flask">
     <meta property="og:type" content="website">
     <meta property="og:description" content="Convert a source RSS feed into a periodic digest RSS feed.">
-    <meta property="og:url" content="{{ baseUrl }}">
-    <meta property="og:image" content="{{ icon }}">
-    <meta property="og:image:secure_url" content="{{ icon }}">
+    <meta property="og:url" content=".{{ baseUrl }}">
+    <meta property="og:image" content=".{{ icon }}">
+    <meta property="og:image:secure_url" content=".{{ icon }}">
     <meta property="og:image:alt" content="A cursive-looking D for Digest.">
     <meta property="og:locale" content="en_US">
     <meta name="description" content="Convert a source RSS feed into a periodic digest RSS feed.">
@@ -23,7 +23,7 @@
 <body>
 
     <div class="group-header">
-        <img src="{{ icon }}" alt="A cursive-looking D for Digest.">
+        <img src=".{{ icon }}" alt="A cursive-looking D for Digest.">
         <h1>rss-digest-flask</h1>
     </div>
 
@@ -70,7 +70,7 @@
         <textarea name="output-area" id="output-area" wrap="hard" cols="50" readonly></textarea>
     </div>
 
-    <script src="{{ builderScript }}" baseUrl="{{ baseUrl }}"></script>
+    <script src="{{ builderScript }}"></script>
 
 </body>
 

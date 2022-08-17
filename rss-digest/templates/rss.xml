@@ -16,7 +16,7 @@
         <pubDate>{{ pubDate }}</pubDate>
         <language>en-US</language>
         <image>
-            <url>{{ feedIcon }}</url>
+            <url>.{{ feedIcon }}</url>
             <title>{{ feedTitle }}</title>
             <link>{{ rssUrl }}</link>
             <description>{{ feedIconAlt }}</description>
