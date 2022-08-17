@@ -28,8 +28,7 @@ def main():
         if (latest):
             latest = int(latest)
 
-        # Define other Jinja args
-        rssUrl = "." + url_for("main")
+        # Define another Jinja arg
         pubDate = formatdate()
 
         # Fill in item title date wildcard
@@ -41,7 +40,7 @@ def main():
         dates = sorted(list(articles.keys()))
         
         # Return RSS file
-        return Response(render_template("rss.xml", articles=articles, dates=dates, feedDescription=feedDescription, feedIcon=feedIcon, feedIconAlt=feedIconAlt, feedTitle=feedTitle, itemTitle=itemTitle, latest=latest, pubDate=pubDate, rssUrl=rssUrl, url=url), mimetype="application/xml")
+        return Response(render_template("rss.xml", articles=articles, dates=dates, feedDescription=feedDescription, feedIcon=feedIcon, feedIconAlt=feedIconAlt, feedTitle=feedTitle, itemTitle=itemTitle, latest=latest, pubDate=pubDate, rssUrl=url, url=url), mimetype="application/xml")
     except:
         # Request malformed or missing args
         return ("Request malformed or missing args!", 400)
