@@ -16,7 +16,7 @@ def main():
     try:
         # If no URL args, return the URL builder page
         if (len(request.args.keys()) == 0):
-            return render_template("index.html", baseUrl=url_for("main", _external=True), builderScript= url_for("static", filename="js/builder.js"), icon=url_for("static", filename="img/icon.svg"), stylesheet=url_for("static", filename="css/style.css"))
+            return render_template("index.html", baseUrl=url_for("main", _external=True), builderScript= url_for("static", filename="js/builder.js", _external=True), icon=url_for("static", filename="img/icon.svg", _external=True), stylesheet=url_for("static", filename="css/style.css", _external=True))
 
         # Get URL args
         url = request.args.get("url", None)
