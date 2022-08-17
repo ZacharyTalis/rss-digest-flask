@@ -29,7 +29,7 @@ def main():
             latest = int(latest)
 
         # Define other Jinja args
-        rssUrl = request.url
+        rssUrl = "." + url_for("main")
         pubDate = formatdate()
 
         # Fill in item title date wildcard
