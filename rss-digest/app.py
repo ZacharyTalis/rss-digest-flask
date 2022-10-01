@@ -29,7 +29,7 @@ def main():
             latest = int(latest)
 
         # Define another Jinja arg
-        pubDate = formatdate()
+        pubDate = formatdate(usegmt=True)
 
         # Fill in item title date wildcard
         itemTitle = itemTitle.replace("_date", pubDate[0:-15])
