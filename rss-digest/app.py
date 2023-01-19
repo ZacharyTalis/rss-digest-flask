@@ -4,6 +4,7 @@ import utils.handler
 import dateutil.parser
 from email.utils import formatdate
 from flask import Flask, Response, request, render_template, send_file, url_for
+from time import time
 from waitress import serve
 
 
@@ -28,11 +29,11 @@ def main():
         if (latest):
             latest = int(latest)
 
-        # Define another Jinja arg
-        pubDate = formatdate(usegmt=True)
+        # Define another Jinja arg (ten minutes earlier)
+        pubDate = formatdate(time() - 600, usegmt=True)
 
         # Fill in item title date wildcard
-        itemTitle = itemTitle.replace("_date", pubDate[0:-15])
+        itemTitle = itemTitle.replace("_date", pubDate[0:-20])
 
         # Get articles dictionary
         root = utils.handler.getRootFromRssUrl(url)
