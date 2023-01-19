@@ -33,7 +33,7 @@ def main():
         pubDate = formatdate(time() - 600, usegmt=True)
 
         # Fill in item title date wildcard
-        itemTitle = itemTitle.replace("_date", pubDate[0:-20])
+        itemTitle = itemTitle.replace("_date", pubDate[0:-18])
 
         # Get articles dictionary
         root = utils.handler.getRootFromRssUrl(url)
