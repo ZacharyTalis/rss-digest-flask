@@ -9,7 +9,7 @@
 {%- endmacro -%}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <atom:link href="https://plus.zacharytalis.com/digest/?url={{ rssUrl }}" type="application/rss+xml" rel="self" />
+        <atom:link href="{{ selfUrl }}" type="application/rss+xml" rel="self" />
         <title>{{ feedTitle }}</title>
         <link>{{ rssUrl }}</link>
         <description>{{ feedDescription }}</description>

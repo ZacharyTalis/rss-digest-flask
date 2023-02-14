@@ -29,6 +29,9 @@ def main():
         if (latest):
             latest = int(latest)
 
+        # Get atom:link self url
+        selfUrl = request.url
+
         # Define another Jinja arg (ten minutes earlier)
         pubDate = formatdate(time() - 600, usegmt=True)
 
@@ -39,9 +42,9 @@ def main():
         root = utils.handler.getRootFromRssUrl(url)
         articles = utils.handler.getArticlesFromRoot(root, dateutil.parser.parse(pubDate).timestamp(), latest)
         dates = sorted(list(articles.keys()))
-        
+
         # Return RSS file
-        return Response(render_template("rss.xml", articles=articles, dates=dates, feedDescription=feedDescription, feedIcon=feedIcon, feedIconAlt=feedIconAlt, feedTitle=feedTitle, itemTitle=itemTitle, latest=latest, pubDate=pubDate, rssUrl=url, url=url), mimetype="application/xml")
+        return Response(render_template("rss.xml", articles=articles, dates=dates, feedDescription=feedDescription, feedIcon=feedIcon, feedIconAlt=feedIconAlt, feedTitle=feedTitle, itemTitle=itemTitle, latest=latest, pubDate=pubDate, rssUrl=url, selfUrl=selfUrl), mimetype="application/xml")
     except:
         # Request malformed or missing args
         return ("Request malformed or missing args!", 400)
