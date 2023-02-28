@@ -13,6 +13,7 @@
         <link>{{ rssUrl }}</link>
         <description>{{ feedDescription }}</description>
         <pubDate>{{ pubDate }}</pubDate>
+        <lastBuildDate>{{ pubDate }}</lastBuildDate>
         <language>en-US</language>
         <image>
             <url>{{ feedIcon }}</url>
