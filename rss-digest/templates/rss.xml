@@ -30,7 +30,7 @@
             <item>
                 <title>{{ itemTitle }}</title>
                 <link>{{ rssUrl }}</link>
-                <guid>{{ guid }}</guid>
+                <guid isPermaLink="false">{{ guid }}</guid>
                 <pubDate>{{ pubDate }}</pubDate>
                 <source url="{{ rssUrl }}">{{ feedTitle }}</source>
                 <description>{{ description() }}</description>
