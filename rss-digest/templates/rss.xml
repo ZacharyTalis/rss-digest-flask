@@ -15,10 +15,6 @@
         <pubDate>{{ pubDate }}</pubDate>
         <lastBuildDate>{{ pubDate }}</lastBuildDate>
         <language>en-US</language>
-        <skipHours><hour>1</hour><hour>2</hour><hour>3</hour><hour>4</hour><hour>5</hour><hour>6</hour><hour>7</hour><hour>8</hour><hour>9</hour><hour>10</hour><hour>11</hour><hour>12</hour><hour>13</hour><hour>14</hour><hour>15</hour><hour>16</hour><hour>17</hour><hour>18</hour><hour>19</hour><hour>20</hour><hour>21</hour><hour>22</hour><hour>23</hour></skipHours>
-        <sy:updateFrequency>1</sy:updateFrequency>
-        <sy:updatePeriod>daily</sy:updatePeriod>
-        <sy:updateBase>2023-01-01T00:00:00-05:00</sy:updateBase>
         <ttl>1440</ttl>
         <image>
             <url>{{ feedIcon }}</url>
