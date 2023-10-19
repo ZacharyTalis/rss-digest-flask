@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 
 # An individual article for the digest
 class Article:
-    
+
     def __init__(self, updated=None, link=None, title=None, summary=None):
         self.updated = updated
         self.link = link
