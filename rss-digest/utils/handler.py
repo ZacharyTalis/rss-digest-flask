@@ -39,7 +39,6 @@ class HandlerHtmlParser(HTMLParser):
 # Take the URL of some RSS file and return its XML root
 def getRootFromRssUrl(url):
     contents = requests.get(url, headers={"User-Agent": "rss-digest-flask/1.0.0"}).text
-    print(contents)
     root = ET.fromstring(contents)
     # Handle XML vs RSS hierarchy difference
     if list(root)[0].tag == "channel":
