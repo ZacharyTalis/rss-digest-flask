@@ -1,0 +1,13 @@
+[Unit]
+Description=Startup Waitress service for rss-digest-flask
+After=network.target
+
+[Service]
+Environment=REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+User=__USER__
+WorkingDirectory=__DIRECTORY__/rss-digest
+ExecStart=__DIRECTORY__/venv/bin/python3 -m waitress --host=127.0.0.1 --port=6676 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

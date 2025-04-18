@@ -2,7 +2,20 @@
 
 Convert a source RSS feed into a periodic digest RSS feed.
 
-[Live demo available here (no uptime guarantee).](https://plus.zacharytalis.com/digest/)
+[Live demo available here (no uptime guarantee).](https://plus.cerisetalis.com/digest/)
+
+## Local testing
+
+For local testing, change directory to `rss-digest` and run `flask run --debug`.
+
+## Deployment
+
+1. Install the `ca-certificates` package.
+2. In the main directory, run `python3 -m venv venv && . venv/bin/activate`.
+3. Run `pip install .` to install the dependencies defined by `setup.py`.
+4. Add and enable a new systemd service based off of `ref/rss-digest-flask.service`.
+5. Configure an nginx site using the route information provided by `ref/nginx.txt`.
+6. Reboot and enjoy :3
 
 ## URL Arguments
 
